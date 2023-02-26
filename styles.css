@@ -119,10 +119,15 @@ nav {
     padding: 1rem;
 }
 
-.categories-items button:hover, .categories-items button.active {
+.categories-items button:hover {
     border-color: var(--g1);
     background-color: var(--g1);
     transition: all 0.3s ease-in-out;
+}
+
+.categories-items button.active {
+    border-color: var(--g1);
+    background-color: var(--g1);
 }
 
 .products {
@@ -134,7 +139,7 @@ nav {
 
 .product {
     padding: 2rem;
-    max-width: 40rem;
+    max-width: 35rem;
     border: solid var(--g3);
     border-radius: 2rem;
     display: flex;
@@ -181,7 +186,6 @@ nav {
 
 .product.on-sale .product-price-default {
     font-size: 2rem;
-    text-decoration: line-through;
     position: relative;
 }
 
@@ -189,13 +193,13 @@ nav {
     content: '';
     position: absolute;
     width: 110%;
-    height: 0.15rem;
+    height: 0.2rem;
     background-color: black;
     top: 50%;
     left: -5%;
 }
 
-@media screen and (min-width:1300px) {
+@media screen and (min-width:1450px) {
     .container {
         display: flex;
     }
@@ -226,4 +230,8 @@ nav {
         border: none;
         border-radius: 0;
     }
+}
+
+@media screen and (max-width: 900px) {
+    
 }
