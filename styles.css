@@ -230,8 +230,29 @@ nav {
         border: none;
         border-radius: 0;
     }
+
+    .products {
+        padding: 2rem;
+    }
 }
 
 @media screen and (max-width: 900px) {
+    .header-title {
+        font-size: 3rem;
+    }
     
+    .header-icon {
+        height: 3rem;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    nav {
+        flex-wrap: wrap;
+        gap: 3rem;
+    }
+
+    .search-bar {
+        order: 1;
+    }
 }
