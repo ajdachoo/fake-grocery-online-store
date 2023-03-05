@@ -1,0 +1,43 @@
+
+const currentProducts = products;
+let categories = new Set();
+
+const productsSection = document.querySelector(".products");
+
+const renderProducts = (items) => {
+    for (let i = 0; i < items.length; i++) {
+        const newProduct = document.createElement("div");
+        newProduct.className = `product ${items[i].sale ? "on-sale" : ""}`;
+        newProduct.innerHTML = `
+                <img src="${items[i].image}" alt="${items[i].name}" class="item-icon">
+                <h1 class="product-title">${items[i].name}</h1>
+                <p class="product-description">${items[i].description}</p>
+                <div class="product-price"><span class="product-price-default">$${items[i].price.toFixed(2)}</span><span class="product-price-sale">$${items[i].saleAmount.toFixed(2)}</span></div>
+                <button>Add to cart</button>`;
+        
+        productsSection.appendChild(newProduct);
+    }
+};
+
+
+const renderCategories = (items) => {
+    for (let i = 0; i < items.length; i++) {
+        categories.add(items[i].category);
+    }
+
+    categories = ["all", ...categories];
+
+    const categoriesSection = document.querySelector(".categories-items");
+
+    categories.forEach((category, index) => {
+        const newCategory = document.createElement("button");
+        newCategory.innerHTML = category;
+        index === 0 ? newCategory.className = "active" : "";
+
+        categoriesSection.appendChild(newCategory);
+    });
+};
+
+
+document.onload = renderProducts(currentProducts);
+document.onload = renderCategories(currentProducts);

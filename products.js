@@ -95,7 +95,7 @@ const products = [
         description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste est quibusdam ad. Vitae cupiditate, reiciendis eum sunt quibusdam tenetur maiores accusamus quas itaque voluptas sint atque eaque, libero error magni.`,
         category: "grains-and-nuts",
         price: 10,
-        image: "./images/penauts.jpg",
+        image: "./images/peanuts.jpg",
         sale: false,
         saleAmount: 8.99,
     }
