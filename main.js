@@ -1,10 +1,11 @@
 
-const currentProducts = products;
+let currentProducts = products;
 let categories = new Set();
 
 const productsSection = document.querySelector(".products");
 
 const renderProducts = (items) => {
+    productsSection.innerHTML = "";
     for (let i = 0; i < items.length; i++) {
         const newProduct = document.createElement("div");
         newProduct.className = `product ${items[i].sale ? "on-sale" : ""}`;
@@ -32,6 +33,7 @@ const renderCategories = (items) => {
     categories.forEach((category, index) => {
         const newCategory = document.createElement("button");
         newCategory.innerHTML = category;
+        newCategory.dataset.category = category;
         index === 0 ? newCategory.className = "active" : "";
 
         categoriesSection.appendChild(newCategory);
@@ -41,3 +43,24 @@ const renderCategories = (items) => {
 
 document.onload = renderProducts(currentProducts);
 document.onload = renderCategories(currentProducts);
+
+const categoriesButtons = document.querySelectorAll(".categories-items button");
+
+categoriesButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        const category = e.target.dataset.category;
+
+        categoriesButtons.forEach((btn) => btn.classList.remove("active"));
+        e.target.className = "active";
+
+        console.log(category);
+
+        if(category === "all") {
+            currentProducts = products;
+        } else {
+            currentProducts = products.filter((product) => product.category === category);
+        }
+        console.log(currentProducts);
+        renderProducts(currentProducts);
+    });
+});
