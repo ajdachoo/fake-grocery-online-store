@@ -53,14 +53,11 @@ categoriesButtons.forEach((btn) => {
         categoriesButtons.forEach((btn) => btn.classList.remove("active"));
         e.target.className = "active";
 
-        console.log(category);
-
         if(category === "all") {
             currentProducts = products;
         } else {
             currentProducts = products.filter((product) => product.category === category);
         }
-        console.log(currentProducts);
         renderProducts(currentProducts);
     });
 });
