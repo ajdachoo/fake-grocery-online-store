@@ -1,8 +1,7 @@
-
 let currentProducts = products;
-let categories = new Set();
+let categories: any = new Set();
 
-const productsSection = document.querySelector(".products");
+const productsSection: HTMLElement = document.querySelector(".products");
 
 const renderProducts = (items) => {
     productsSection.innerHTML = "";
@@ -15,7 +14,7 @@ const renderProducts = (items) => {
                 <p class="product-description">${items[i].description}</p>
                 <div class="product-price"><span class="product-price-default">$${items[i].price.toFixed(2)}</span><span class="product-price-sale">$${items[i].saleAmount.toFixed(2)}</span></div>
                 <button>Add to cart</button>`;
-        
+
         productsSection.appendChild(newProduct);
     }
 };
@@ -41,19 +40,19 @@ const renderCategories = (items) => {
 };
 
 
-document.onload = renderProducts(currentProducts);
-document.onload = renderCategories(currentProducts);
+renderProducts(currentProducts);
+renderCategories(currentProducts);
 
 const categoriesButtons = document.querySelectorAll(".categories-items button");
 
 categoriesButtons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        const category = e.target.dataset.category;
+    btn.addEventListener("click", (e: Event) => {
+        const category = (<HTMLElement>e.target).dataset.category;
 
         categoriesButtons.forEach((btn) => btn.classList.remove("active"));
-        e.target.className = "active";
+        (<HTMLElement>e.target).className = "active";
 
-        if(category === "all") {
+        if (category === "all") {
             currentProducts = products;
         } else {
             currentProducts = products.filter((product) => product.category === category);
@@ -61,3 +60,4 @@ categoriesButtons.forEach((btn) => {
         renderProducts(currentProducts);
     });
 });
+
