@@ -36,8 +36,6 @@ const products = [
         category: "dairy-products",
         price: 4,
         image: "./images/milk.jpg",
-        sale: false,
-        saleAmount: 3.75,
     },
     {
         id: 4,
@@ -96,7 +94,5 @@ const products = [
         category: "grains-and-nuts",
         price: 10,
         image: "./images/peanuts.jpg",
-        sale: false,
-        saleAmount: 8.99,
     }
 ];

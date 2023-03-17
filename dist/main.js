@@ -10,7 +10,7 @@ const renderProducts = (items) => {
                 <img src="${items[i].image}" alt="${items[i].name}" class="item-icon">
                 <h1 class="product-title">${items[i].name}</h1>
                 <p class="product-description">${items[i].description}</p>
-                <div class="product-price"><span class="product-price-default">$${items[i].price.toFixed(2)}</span><span class="product-price-sale">$${items[i].saleAmount.toFixed(2)}</span></div>
+                <div class="product-price"><span class="product-price-default">$${items[i].price.toFixed(2)}</span><span class="product-price-sale">${items[i].saleAmount ? "$" + items[i].saleAmount.toFixed(2) : ""}</span></div>
                 <button>Add to cart</button>`;
         productsSection.appendChild(newProduct);
     }

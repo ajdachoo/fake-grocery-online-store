@@ -1,9 +1,9 @@
-let currentProducts = products;
+let currentProducts: Product[] = products;
 let categories: any = new Set();
 
 const productsSection: HTMLElement = document.querySelector(".products");
 
-const renderProducts = (items) => {
+const renderProducts = (items: Product[]) => {
     productsSection.innerHTML = "";
     for (let i = 0; i < items.length; i++) {
         const newProduct = document.createElement("div");
@@ -12,7 +12,7 @@ const renderProducts = (items) => {
                 <img src="${items[i].image}" alt="${items[i].name}" class="item-icon">
                 <h1 class="product-title">${items[i].name}</h1>
                 <p class="product-description">${items[i].description}</p>
-                <div class="product-price"><span class="product-price-default">$${items[i].price.toFixed(2)}</span><span class="product-price-sale">$${items[i].saleAmount.toFixed(2)}</span></div>
+                <div class="product-price"><span class="product-price-default">$${items[i].price.toFixed(2)}</span><span class="product-price-sale">${items[i].saleAmount ? "$" + items[i].saleAmount.toFixed(2) : ""}</span></div>
                 <button>Add to cart</button>`;
 
         productsSection.appendChild(newProduct);
@@ -20,7 +20,7 @@ const renderProducts = (items) => {
 };
 
 
-const renderCategories = (items) => {
+const renderCategories = (items: Product[]) => {
     for (let i = 0; i < items.length; i++) {
         categories.add(items[i].category);
     }
@@ -60,4 +60,6 @@ categoriesButtons.forEach((btn) => {
         renderProducts(currentProducts);
     });
 });
+
+
 
