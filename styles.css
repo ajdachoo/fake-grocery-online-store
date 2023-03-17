@@ -90,7 +90,8 @@ nav {
 }
 
 .categories {
-    padding: 1rem 2rem 2rem; /* top right-left bottom */
+    padding: 1rem 2rem 2rem;
+    /* top right-left bottom */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -110,7 +111,8 @@ nav {
     gap: 1rem;
 }
 
-.categories-items button, .product button {
+.categories-items button,
+.product button {
     background: none;
     font-size: 2rem;
     border: solid var(--g3);
@@ -132,7 +134,7 @@ nav {
 
 .products {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 2rem;
 }
@@ -158,9 +160,10 @@ nav {
     font-size: 3rem;
 }
 
-.product h1::first-letter, .categories-items button::first-letter {
+.product h1::first-letter,
+.categories-items button::first-letter {
     text-transform: capitalize;
-} 
+}
 
 .product p {
     font-size: 1.6rem;
@@ -203,6 +206,18 @@ nav {
     left: -5%;
 }
 
+.empty-state {
+    display: none;
+    font-size: 5rem;
+    margin: 10rem auto;
+    color: var(--g4);
+    text-align: center;
+}
+
+.empty-state.active {
+    display: block;
+}
+
 @media screen and (min-width:1450px) {
     .container {
         display: flex;
@@ -238,13 +253,17 @@ nav {
     .products {
         padding: 2rem;
     }
+
+    .empty-state {
+        margin: auto;
+    }
 }
 
 @media screen and (max-width: 900px) {
     .header-title {
         font-size: 3rem;
     }
-    
+
     .header-icon {
         height: 3rem;
     }

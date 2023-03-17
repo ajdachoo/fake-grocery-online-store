@@ -61,5 +61,21 @@ categoriesButtons.forEach((btn) => {
     });
 });
 
+const searchBarInput = document.querySelector(".search-bar input");
 
+searchBarInput.addEventListener("input", (e: Event) => {
+    const search = (<HTMLInputElement>e.target).value.toLowerCase();
+
+    const foundProducts = currentProducts.filter((product) => {
+        if (product.name.toLocaleLowerCase().includes(search)) {
+            return product;
+        }
+    });
+
+    const emptyState = document.querySelector(".empty-state");
+
+    foundProducts.length === 0 ? emptyState.classList.add("active") : emptyState.classList.remove("active");
+
+    renderProducts(foundProducts);
+});
 
