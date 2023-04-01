@@ -6,12 +6,16 @@ const productsSection: HTMLElement = document.querySelector(".products");
 const renderProducts = (items: Product[]) => {
     productsSection.innerHTML = "";
     for (let i = 0; i < items.length; i++) {
+
+        let minQty = items[i].measure === Measure.Kg ? 0.1 : 1;
+
         const newProduct = document.createElement("div");
         newProduct.className = `product ${items[i].sale ? "on-sale" : ""}`;
         newProduct.innerHTML = `
                 <img src="${items[i].image}" alt="${items[i].name}" class="item-icon">
                 <h1 class="product-title">${items[i].name}</h1>
                 <p class="product-description">${items[i].description}</p>
+                <div class="product-quantity"><div class="product-quantity-counter"><button value="-" disabled="disabled">-</button><input type="number" max="100" min="${minQty}" step="${minQty}" value="${minQty}"><button value="+">+</button></div><span class="product-measure">${items[i].measure}</span></div>
                 <div class="product-price"><span class="product-price-default">$${items[i].price.toFixed(2)}</span><span class="product-price-sale">${items[i].saleAmount ? "$" + items[i].saleAmount.toFixed(2) : ""}</span></div>
                 <button>Add to cart</button>`;
 
@@ -77,5 +81,13 @@ searchBarInput.addEventListener("input", (e: Event) => {
     foundProducts.length === 0 ? emptyState.classList.add("active") : emptyState.classList.remove("active");
 
     renderProducts(foundProducts);
+});
+
+const quantityCounterButtons = document.querySelectorAll(".product-quantity-counter button");
+
+quantityCounterButtons.forEach((btn) => {
+    btn.addEventListener("click", (e: Event) => {
+
+    })
 });
 
