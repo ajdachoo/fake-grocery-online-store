@@ -11,9 +11,9 @@ const renderProducts = (items) => {
                 <img src="${items[i].image}" alt="${items[i].name}" class="item-icon">
                 <h1 class="product-title">${items[i].name}</h1>
                 <p class="product-description">${items[i].description}</p>
-                <div class="product-quantity"><div class="product-quantity-counter"><button value="-" disabled="disabled">-</button><input type="number" max="100" min="${minQty}" step="${minQty}" value="${minQty}"><button value="+">+</button></div><span class="product-measure">${items[i].measure}</span></div>
+                <div class="product-quantity"><div class="product-quantity-counter"><button data-id="${items[i].id}" value="-" disabled="disabled">-</button><input data-id="${items[i].id}" type="number" max="100" min="${minQty}" step="${minQty}" value="${minQty}"><button data-id="${items[i].id}" value="+">+</button></div><span class="product-measure">${items[i].measure}</span></div>
                 <div class="product-price"><span class="product-price-default">$${items[i].price.toFixed(2)}</span><span class="product-price-sale">${items[i].saleAmount ? "$" + items[i].saleAmount.toFixed(2) : ""}</span></div>
-                <button>Add to cart</button>`;
+                <button data-id="${items[i].id}">Add to cart</button>`;
         productsSection.appendChild(newProduct);
     }
 };
@@ -63,5 +63,26 @@ searchBarInput.addEventListener("input", (e) => {
 const quantityCounterButtons = document.querySelectorAll(".product-quantity-counter button");
 quantityCounterButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
+        const button = e.target;
+        const quantityCounterInput = document.querySelector(`.product-quantity-counter input[data-id="${button.dataset.id}"]`);
+        let counterInputValue = parseFloat(quantityCounterInput.value);
+        if (button.value === "-") {
+            document.querySelector(`.product-quantity-counter button[data-id="${button.dataset.id}"][value="+"]`).disabled = false;
+            counterInputValue -= parseFloat(quantityCounterInput.step);
+            quantityCounterInput.value = counterInputValue.toFixed(1).toString();
+            console.log(quantityCounterInput.value);
+            console.log(quantityCounterInput.min);
+            if (parseFloat(quantityCounterInput.value) === parseFloat(quantityCounterInput.min)) {
+                button.disabled = true;
+            }
+        }
+        else {
+            document.querySelector(`.product-quantity-counter button[data-id="${button.dataset.id}"][value="-"]`).disabled = false;
+            counterInputValue += parseFloat(quantityCounterInput.step);
+            quantityCounterInput.value = counterInputValue.toFixed(1).toString();
+            if (parseFloat(quantityCounterInput.value) === parseFloat(quantityCounterInput.max)) {
+                button.disabled = true;
+            }
+        }
     });
 });
