@@ -1,5 +1,6 @@
 let currentProducts: Product[] = products;
-let categories: any = new Set<Product>();
+let categories: any = new Set<string>();
+let cart = new Set<Product>();
 
 const productsSection: HTMLElement = document.querySelector(".products");
 
@@ -17,7 +18,7 @@ const renderProducts = (items: Product[]) => {
                 <p class="product-description">${items[i].description}</p>
                 <div class="product-quantity"><div class="product-quantity-counter"><button data-id="${items[i].id}" value="-" disabled="disabled">-</button><input data-id="${items[i].id}" type="number" max="100" min="${minQty}" step="${minQty}" value="${minQty.toFixed(1).toString()}"><button data-id="${items[i].id}" value="+">+</button></div><span class="product-measure">${items[i].measure}</span></div>
                 <div class="product-price"><span class="product-price-default">$${items[i].price.toFixed(2)}</span><span class="product-price-sale">${items[i].saleAmount ? "$" + items[i].saleAmount.toFixed(2) : ""}</span></div>
-                <button data-id="${items[i].id}">Add to cart</button>`;
+                <button class="add-to-cart-button" data-id="${items[i].id}">Add to cart</button>`;
 
         productsSection.appendChild(newProduct);
     }
@@ -41,6 +42,16 @@ const renderCategories = (items: Product[]) => {
 
         categoriesSection.appendChild(newCategory);
     });
+};
+
+const addToCart = (productId: number) => {
+    cart.add(currentProducts[productId]);
+
+    const cartCounterElement = document.querySelector(".shopping-cart-counter p");
+    cartCounterElement.parentElement.classList.add("active");
+    let cartCounter: string;
+    cart.size > 9 ? cartCounter = "9+" : cartCounter = cart.size.toString();
+    cartCounterElement.innerHTML = cartCounter;
 };
 
 
@@ -108,6 +119,16 @@ quantityCounterButtons.forEach((btn) => {
                 button.disabled = true;
             }
         }
-    })
+    });
+});
+
+const addToCartButtons = document.querySelectorAll(".add-to-cart-button");
+
+addToCartButtons.forEach((btn) => {
+    btn.addEventListener("click", (e: Event) => {
+        const button = (<HTMLButtonElement>e.target);
+
+        addToCart(parseInt(button.dataset.id));
+    });
 });
 
