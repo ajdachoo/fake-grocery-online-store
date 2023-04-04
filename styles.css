@@ -287,6 +287,11 @@ nav {
         border-right: solid var(--g3);
         min-width: 30rem;
         padding: 0;
+        position: sticky;
+        top: 0;
+        left: 0;
+        align-self: flex-start;
+        height: 100vh;
     }
 
     .categories-title {
