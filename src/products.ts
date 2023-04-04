@@ -16,7 +16,37 @@ enum Measure {
     Unit = "",
 }
 
+class Cart {
+    products: { product: Product, quantity: number, amount: number }[] = [];
 
+    add(product: Product, quantity: number) {
+
+        for (let i = 0; i < this.products.length; i++) {
+            if (this.products[i].product === product) {
+
+                this.products[i].quantity += quantity;
+                this.products[i].amount = this.#calculateQuantity(this.products[i].product, this.products[i].quantity);
+                console.log(this.products);
+                return;
+            }
+        }
+
+        this.products.push({ product: product, quantity: quantity, amount: this.#calculateQuantity(product, quantity) });
+        console.log(this.products);
+    }
+
+    #calculateQuantity(product: Product, quantity: number): number {
+        let result: number;
+
+        if ("sale" in product && product.sale === true) {
+            result = quantity * product.saleAmount;
+        } else {
+            result = quantity * product.price;
+        }
+
+        return result;
+    }
+}
 
 const products: Product[] = [
     {

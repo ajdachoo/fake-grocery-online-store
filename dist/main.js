@@ -1,6 +1,6 @@
 let currentProducts = products;
 let categories = new Set();
-let cart = new Set();
+const cart = new Cart();
 const productsSection = document.querySelector(".products");
 const renderProducts = (items) => {
     productsSection.innerHTML = "";
@@ -32,12 +32,12 @@ const renderCategories = (items) => {
         categoriesSection.appendChild(newCategory);
     });
 };
-const addToCart = (productId) => {
-    cart.add(currentProducts[productId]);
+const addToCart = (productId, quantity) => {
+    cart.add(currentProducts[productId], quantity);
     const cartCounterElement = document.querySelector(".shopping-cart-counter p");
     cartCounterElement.parentElement.classList.add("active");
     let cartCounter;
-    cart.size > 9 ? cartCounter = "9+" : cartCounter = cart.size.toString();
+    cart.products.length > 9 ? cartCounter = "9+" : cartCounter = cart.products.length.toString();
     cartCounterElement.innerHTML = cartCounter;
 };
 renderProducts(currentProducts);
@@ -97,6 +97,8 @@ const addToCartButtons = document.querySelectorAll(".add-to-cart-button");
 addToCartButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
         const button = e.target;
-        addToCart(parseInt(button.dataset.id));
+        const quantityCounterInput = document.querySelector(`.product-quantity-counter input[data-id="${button.dataset.id}"]`);
+        const counterInputValue = parseFloat(quantityCounterInput.value);
+        addToCart(parseInt(button.dataset.id), counterInputValue);
     });
 });

@@ -1,9 +1,43 @@
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
+var _Cart_instances, _Cart_calculateQuantity;
 var Measure;
 (function (Measure) {
     Measure["Kg"] = "Kg";
     Measure["Liter"] = "L";
     Measure["Unit"] = "";
 })(Measure || (Measure = {}));
+class Cart {
+    constructor() {
+        _Cart_instances.add(this);
+        this.products = [];
+    }
+    add(product, quantity) {
+        for (let i = 0; i < this.products.length; i++) {
+            if (this.products[i].product === product) {
+                this.products[i].quantity += quantity;
+                this.products[i].amount = __classPrivateFieldGet(this, _Cart_instances, "m", _Cart_calculateQuantity).call(this, this.products[i].product, this.products[i].quantity);
+                console.log(this.products);
+                return;
+            }
+        }
+        this.products.push({ product: product, quantity: quantity, amount: __classPrivateFieldGet(this, _Cart_instances, "m", _Cart_calculateQuantity).call(this, product, quantity) });
+        console.log(this.products);
+    }
+}
+_Cart_instances = new WeakSet(), _Cart_calculateQuantity = function _Cart_calculateQuantity(product, quantity) {
+    let result;
+    if ("sale" in product && product.sale === true) {
+        result = quantity * product.saleAmount;
+    }
+    else {
+        result = quantity * product.price;
+    }
+    return result;
+};
 const products = [
     {
         id: 0,
