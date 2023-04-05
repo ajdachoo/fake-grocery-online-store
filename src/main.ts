@@ -54,6 +54,12 @@ const addToCart = (productId: number, quantity: number) => {
     cartCounterElement.innerHTML = cartCounter;
 };
 
+const showShoppingCart = (cart: Cart) => {
+    const modalContainer = document.createElement("div");
+    modalContainer.classList.add("shopping-cart-modal-container");
+    document.body.insertBefore(modalContainer, document.body.children[2]);
+};
+
 
 renderProducts(currentProducts);
 renderCategories(currentProducts);
@@ -134,3 +140,9 @@ addToCartButtons.forEach((btn) => {
     });
 });
 
+const shoppingCartDiv: HTMLDivElement = document.querySelector(".shopping-cart-icon");
+
+shoppingCartDiv.addEventListener("click", (e: Event) => {
+    showShoppingCart(cart);
+});
+//showShoppingCart(cart);

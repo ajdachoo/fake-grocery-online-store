@@ -20,12 +20,10 @@ class Cart {
             if (this.products[i].product === product) {
                 this.products[i].quantity += quantity;
                 this.products[i].amount = __classPrivateFieldGet(this, _Cart_instances, "m", _Cart_calculateQuantity).call(this, this.products[i].product, this.products[i].quantity);
-                console.log(this.products);
                 return;
             }
         }
         this.products.push({ product: product, quantity: quantity, amount: __classPrivateFieldGet(this, _Cart_instances, "m", _Cart_calculateQuantity).call(this, product, quantity) });
-        console.log(this.products);
     }
 }
 _Cart_instances = new WeakSet(), _Cart_calculateQuantity = function _Cart_calculateQuantity(product, quantity) {

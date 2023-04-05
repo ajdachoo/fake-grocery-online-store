@@ -6,6 +6,7 @@
     --g3: #E9F1F7;
     --g4: rgb(100, 100, 100);
     --g5: #C5E063;
+    --g6: rgba(128, 128, 128, 0.3);
 }
 
 * {
@@ -82,6 +83,7 @@ nav {
     display: flex;
     align-items: end;
     gap: 0.5rem;
+    cursor: pointer;
 }
 
 .shopping-cart-icon p {
@@ -275,6 +277,34 @@ nav {
 
 .empty-state.active {
     display: block;
+}
+
+.shopping-cart-modal-container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(2px);
+    background-color: var(--g6);
+    height: 100%;
+    width: 100%;
+}
+
+.shopping-cart-modal {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    width: 50rem;
+}
+
+.shopping-cart-modal .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 @media screen and (min-width:1450px) {

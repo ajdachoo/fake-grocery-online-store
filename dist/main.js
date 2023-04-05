@@ -40,6 +40,11 @@ const addToCart = (productId, quantity) => {
     cart.products.length > 9 ? cartCounter = "9+" : cartCounter = cart.products.length.toString();
     cartCounterElement.innerHTML = cartCounter;
 };
+const showShoppingCart = (cart) => {
+    const modalContainer = document.createElement("div");
+    modalContainer.classList.add("shopping-cart-modal-container");
+    document.body.insertBefore(modalContainer, document.body.children[2]);
+};
 renderProducts(currentProducts);
 renderCategories(currentProducts);
 const categoriesButtons = document.querySelectorAll(".categories-items button");
@@ -102,3 +107,8 @@ addToCartButtons.forEach((btn) => {
         addToCart(parseInt(button.dataset.id), counterInputValue);
     });
 });
+const shoppingCartDiv = document.querySelector(".shopping-cart-icon");
+shoppingCartDiv.addEventListener("click", (e) => {
+    showShoppingCart(cart);
+});
+//showShoppingCart(cart);

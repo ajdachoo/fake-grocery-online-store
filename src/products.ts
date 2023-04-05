@@ -26,13 +26,11 @@ class Cart {
 
                 this.products[i].quantity += quantity;
                 this.products[i].amount = this.#calculateQuantity(this.products[i].product, this.products[i].quantity);
-                console.log(this.products);
                 return;
             }
         }
 
         this.products.push({ product: product, quantity: quantity, amount: this.#calculateQuantity(product, quantity) });
-        console.log(this.products);
     }
 
     #calculateQuantity(product: Product, quantity: number): number {
