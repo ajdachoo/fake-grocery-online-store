@@ -44,6 +44,20 @@ class Cart {
 
         return result;
     }
+
+    totalAmount(): string {
+        let totalAmount = 0;
+
+        this.products.forEach((product) => {
+            totalAmount += product.amount;
+        });
+
+        return totalAmount.toFixed(2);
+    }
+
+    removeProduct(product: Product) {
+        this.products.splice(this.products.findIndex(v => v.product === product), 1);
+    }
 }
 
 const products: Product[] = [

@@ -299,6 +299,7 @@ nav {
     align-items: center;
     background-color: white;
     width: 50rem;
+    padding: 1.5rem;
 }
 
 .shopping-cart-modal .close-button {

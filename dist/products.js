@@ -25,6 +25,16 @@ class Cart {
         }
         this.products.push({ product: product, quantity: quantity, amount: __classPrivateFieldGet(this, _Cart_instances, "m", _Cart_calculateQuantity).call(this, product, quantity) });
     }
+    totalAmount() {
+        let totalAmount = 0;
+        this.products.forEach((product) => {
+            totalAmount += product.amount;
+        });
+        return totalAmount.toFixed(2);
+    }
+    removeProduct(product) {
+        this.products.splice(this.products.findIndex(v => v.product === product), 1);
+    }
 }
 _Cart_instances = new WeakSet(), _Cart_calculateQuantity = function _Cart_calculateQuantity(product, quantity) {
     let result;

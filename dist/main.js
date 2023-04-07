@@ -34,8 +34,18 @@ const renderCategories = (items) => {
 };
 const addToCart = (productId, quantity) => {
     cart.add(currentProducts[productId], quantity);
+    renderShoppingCartCounter();
+};
+const renderShoppingCartCounter = () => {
     const cartCounterElement = document.querySelector(".shopping-cart-counter p");
-    cartCounterElement.parentElement.classList.add("active");
+    if (cart.products.length !== 0) {
+        cartCounterElement.parentElement.classList.add("active");
+    }
+    else {
+        cartCounterElement.parentElement.classList.remove("active");
+        cartCounterElement.innerHTML = "";
+        return;
+    }
     let cartCounter;
     cart.products.length > 9 ? cartCounter = "9+" : cartCounter = cart.products.length.toString();
     cartCounterElement.innerHTML = cartCounter;
@@ -43,7 +53,48 @@ const addToCart = (productId, quantity) => {
 const showShoppingCart = (cart) => {
     const modalContainer = document.createElement("div");
     modalContainer.classList.add("shopping-cart-modal-container");
+    modalContainer.innerHTML = `
+        <div class="shopping-cart-modal">
+        <h1>Cart</h1>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Product name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+            </tr>
+        </table>
+        <div>Total amount:${cart.totalAmount()}</div>
+        <button class="close-button"><i class="fa-solid fa-xmark"></i></button>`;
     document.body.insertBefore(modalContainer, document.body.children[2]);
+    const modalTable = document.querySelector(".shopping-cart-modal table");
+    cart.products.forEach((product, index) => {
+        const tableTr = document.createElement("tr");
+        tableTr.innerHTML = `
+        <th>${index + 1}.</th>
+        <th>${product.product.name}</th>
+        <th>${product.product.sale ? product.product.saleAmount.toFixed(2) : product.product.price.toFixed(2)}</th>
+        <th>${product.quantity.toFixed(2)}</th>
+        <th>${product.amount.toFixed(2)}</th>
+        <th><button data-id="${product.product.id}"<i class="fa-solid fa-trash"></i></button></th>`;
+        modalTable.appendChild(tableTr);
+    });
+    const modalCloseButton = document.querySelector(".shopping-cart-modal .close-button");
+    const modalContainerActive = document.querySelector(".shopping-cart-modal-container");
+    modalCloseButton.addEventListener("click", (e) => {
+        modalContainerActive.remove();
+    });
+    const modalTableTrRemoveButtons = document.querySelectorAll(".shopping-cart-modal table button");
+    modalTableTrRemoveButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const button = e.target;
+            cart.removeProduct(currentProducts[button.dataset.id]);
+            modalContainerActive.remove();
+            renderShoppingCartCounter();
+            showShoppingCart(cart);
+        });
+    });
 };
 renderProducts(currentProducts);
 renderCategories(currentProducts);
