@@ -78,31 +78,43 @@ const showShoppingCart = (cart: Cart) => {
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Amount</th>
+                <th></th>
             </tr>
         </table>
-        <div>Total amount:${cart.totalAmount()}</div>
-        <button class="close-button"><i class="fa-solid fa-xmark"></i></button>`;
+        <div class="total-amount">
+            <p>Total amount:<span>$${cart.totalAmount()}</span></p>
+            <button>Clear All</button>
+        </div>
+        <button class="close-button"><i class="fa-solid fa-xmark"></i></button>
+        </div>`;
     document.body.insertBefore(modalContainer, document.body.children[2]);
 
     const modalTable = document.querySelector(".shopping-cart-modal table");
     cart.products.forEach((product, index) => {
         const tableTr = document.createElement("tr");
         tableTr.innerHTML = `
-        <th>${index + 1}.</th>
-        <th>${product.product.name}</th>
-        <th>${product.product.sale ? product.product.saleAmount.toFixed(2) : product.product.price.toFixed(2)}</th>
-        <th>${product.quantity.toFixed(2)}</th>
-        <th>${product.amount.toFixed(2)}</th>
-        <th><button data-id="${product.product.id}"<i class="fa-solid fa-trash"></i></button></th>`;
+        <td>${index + 1}.</td>
+        <td>${product.product.name}</td>
+        <td>$${product.product.sale ? product.product.saleAmount.toFixed(2) : product.product.price.toFixed(2)}</td>
+        <td>${product.quantity.toFixed(2)}</td>
+        <td>$${product.amount.toFixed(2)}</td>
+        <td><button data-id="${product.product.id}"<i class="fa-solid fa-trash"></i></button></td>`;
 
         modalTable.appendChild(tableTr);
     });
 
     const modalCloseButton = document.querySelector(".shopping-cart-modal .close-button");
     const modalContainerActive = document.querySelector(".shopping-cart-modal-container")
+    const clearCartButton = document.querySelector(".total-amount button");
 
     modalCloseButton.addEventListener("click", (e: Event) => {
         modalContainerActive.remove();
+    });
+
+    clearCartButton.addEventListener("click", (e: Event) => {
+        modalContainerActive.remove();
+        cart.clearCart();
+        renderShoppingCartCounter();
     });
 
     const modalTableTrRemoveButtons = document.querySelectorAll(".shopping-cart-modal table button");
@@ -201,6 +213,6 @@ addToCartButtons.forEach((btn) => {
 const shoppingCartDiv: HTMLDivElement = document.querySelector(".shopping-cart-icon");
 
 shoppingCartDiv.addEventListener("click", (e: Event) => {
-    showShoppingCart(cart);
+    cart.products.length !== 0 ? showShoppingCart(cart) : "";
 });
-//showShoppingCart(cart);
+

@@ -128,7 +128,8 @@ nav {
 }
 
 .categories-items button,
-.product button {
+.product button,
+.total-amount button {
     background: none;
     font-size: 2rem;
     border: solid var(--g3);
@@ -177,7 +178,8 @@ nav {
 }
 
 .product h1::first-letter,
-.categories-items button::first-letter {
+.categories-items button::first-letter,
+.shopping-cart-modal table tr td:nth-child(2) {
     text-transform: capitalize;
 }
 
@@ -300,12 +302,66 @@ nav {
     background-color: white;
     width: 50rem;
     padding: 1.5rem;
+    border-radius: 2rem;
+    gap: 2rem;
+}
+
+.shopping-cart-modal table {
+    border-collapse: collapse;
+    font-size: 1.6rem;
+}
+
+.shopping-cart-modal table button {
+    background: none;
+    border: none;
+    transition: ease-in-out 0.3s;
+    font-size: 1.6rem;
+}
+
+.shopping-cart-modal table button:hover {
+    color: red;
+}
+
+.shopping-cart-modal table th,
+.shopping-cart-modal table td {
+    border-bottom: 0.2rem solid var(--g3);
+    padding: 1rem;
+    text-align: center;
+}
+
+.total-amount {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-size: 2rem;
+}
+
+.total-amount span {
+    padding: 0 0.5rem;
+}
+
+.total-amount button {
+    background-color: var(--g3);
 }
 
 .shopping-cart-modal .close-button {
     position: absolute;
-    top: 0;
-    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--g2);
+    transition: ease-in-out 0.3s;
+    border-radius: 50%;
+}
+
+.shopping-cart-modal .close-button:hover {
+    background-color: var(--g3);
 }
 
 @media screen and (min-width:1450px) {

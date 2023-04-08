@@ -58,6 +58,10 @@ class Cart {
     removeProduct(product: Product) {
         this.products.splice(this.products.findIndex(v => v.product === product), 1);
     }
+
+    clearCart() {
+        this.products = [];
+    }
 }
 
 const products: Product[] = [

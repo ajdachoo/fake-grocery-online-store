@@ -35,6 +35,9 @@ class Cart {
     removeProduct(product) {
         this.products.splice(this.products.findIndex(v => v.product === product), 1);
     }
+    clearCart() {
+        this.products = [];
+    }
 }
 _Cart_instances = new WeakSet(), _Cart_calculateQuantity = function _Cart_calculateQuantity(product, quantity) {
     let result;
