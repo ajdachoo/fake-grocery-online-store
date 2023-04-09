@@ -2,6 +2,8 @@ let currentProducts = products;
 let categories = new Set();
 const cart = new Cart();
 const productsSection = document.querySelector(".products");
+let quantityCounterButtons;
+let addToCartButtons;
 const renderProducts = (items) => {
     productsSection.innerHTML = "";
     for (let i = 0; i < items.length; i++) {
@@ -17,6 +19,39 @@ const renderProducts = (items) => {
                 <button class="add-to-cart-button" data-id="${items[i].id}">Add to cart</button>`;
         productsSection.appendChild(newProduct);
     }
+    quantityCounterButtons = document.querySelectorAll(".product-quantity-counter button");
+    quantityCounterButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const button = e.target;
+            const quantityCounterInput = document.querySelector(`.product-quantity-counter input[data-id="${button.dataset.id}"]`);
+            let counterInputValue = parseFloat(quantityCounterInput.value);
+            if (button.value === "-") {
+                document.querySelector(`.product-quantity-counter button[data-id="${button.dataset.id}"][value="+"]`).disabled = false;
+                counterInputValue -= parseFloat(quantityCounterInput.step);
+                quantityCounterInput.value = counterInputValue.toFixed(1).toString();
+                if (parseFloat(quantityCounterInput.value) === parseFloat(quantityCounterInput.min)) {
+                    button.disabled = true;
+                }
+            }
+            else {
+                document.querySelector(`.product-quantity-counter button[data-id="${button.dataset.id}"][value="-"]`).disabled = false;
+                counterInputValue += parseFloat(quantityCounterInput.step);
+                quantityCounterInput.value = counterInputValue.toFixed(1).toString();
+                if (parseFloat(quantityCounterInput.value) === parseFloat(quantityCounterInput.max)) {
+                    button.disabled = true;
+                }
+            }
+        });
+    });
+    addToCartButtons = document.querySelectorAll(".add-to-cart-button");
+    addToCartButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const button = e.target;
+            const quantityCounterInput = document.querySelector(`.product-quantity-counter input[data-id="${button.dataset.id}"]`);
+            const counterInputValue = parseFloat(quantityCounterInput.value);
+            addToCart(parseInt(button.dataset.id), counterInputValue);
+        });
+    });
 };
 const renderCategories = (items) => {
     for (let i = 0; i < items.length; i++) {
@@ -33,7 +68,7 @@ const renderCategories = (items) => {
     });
 };
 const addToCart = (productId, quantity) => {
-    cart.add(currentProducts[productId], quantity);
+    cart.add(products[productId], quantity);
     renderShoppingCartCounter();
 };
 const renderShoppingCartCounter = () => {
@@ -100,7 +135,7 @@ const showShoppingCart = (cart) => {
     modalTableTrRemoveButtons.forEach((btn) => {
         btn.addEventListener("click", (e) => {
             const button = e.target;
-            cart.removeProduct(currentProducts[button.dataset.id]);
+            cart.removeProduct(products[button.dataset.id]);
             modalContainerActive.remove();
             renderShoppingCartCounter();
             showShoppingCart(cart);
@@ -135,39 +170,6 @@ searchBarInput.addEventListener("input", (e) => {
     const emptyState = document.querySelector(".empty-state");
     foundProducts.length === 0 ? emptyState.classList.add("active") : emptyState.classList.remove("active");
     renderProducts(foundProducts);
-});
-const quantityCounterButtons = document.querySelectorAll(".product-quantity-counter button");
-quantityCounterButtons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        const button = e.target;
-        const quantityCounterInput = document.querySelector(`.product-quantity-counter input[data-id="${button.dataset.id}"]`);
-        let counterInputValue = parseFloat(quantityCounterInput.value);
-        if (button.value === "-") {
-            document.querySelector(`.product-quantity-counter button[data-id="${button.dataset.id}"][value="+"]`).disabled = false;
-            counterInputValue -= parseFloat(quantityCounterInput.step);
-            quantityCounterInput.value = counterInputValue.toFixed(1).toString();
-            if (parseFloat(quantityCounterInput.value) === parseFloat(quantityCounterInput.min)) {
-                button.disabled = true;
-            }
-        }
-        else {
-            document.querySelector(`.product-quantity-counter button[data-id="${button.dataset.id}"][value="-"]`).disabled = false;
-            counterInputValue += parseFloat(quantityCounterInput.step);
-            quantityCounterInput.value = counterInputValue.toFixed(1).toString();
-            if (parseFloat(quantityCounterInput.value) === parseFloat(quantityCounterInput.max)) {
-                button.disabled = true;
-            }
-        }
-    });
-});
-const addToCartButtons = document.querySelectorAll(".add-to-cart-button");
-addToCartButtons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        const button = e.target;
-        const quantityCounterInput = document.querySelector(`.product-quantity-counter input[data-id="${button.dataset.id}"]`);
-        const counterInputValue = parseFloat(quantityCounterInput.value);
-        addToCart(parseInt(button.dataset.id), counterInputValue);
-    });
 });
 const shoppingCartDiv = document.querySelector(".shopping-cart-icon");
 shoppingCartDiv.addEventListener("click", (e) => {
