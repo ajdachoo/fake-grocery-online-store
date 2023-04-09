@@ -93,6 +93,9 @@ nav {
 }
 
 .shopping-cart-counter.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: red;
     border-radius: 50%;
     padding: 0.3rem;
@@ -428,5 +431,40 @@ nav {
 
     .search-bar {
         order: 1;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    nav {
+        gap: 2rem;
+    }
+
+    .header-title {
+        font-size: 2.5rem;
+    }
+
+    .header-icon {
+        height: 2.5rem;
+    }
+
+    .shopping-cart-icon {
+        font-size: 2.5rem;
+    }
+
+    .shopping-cart-counter+p {
+        display: none;
+    }
+
+    .shopping-cart-counter.active {
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .shopping-cart-counter p {
+        font-size: 1.5rem;
+    }
+
+    .shopping-cart-modal {
+        width: 100%;
     }
 }
