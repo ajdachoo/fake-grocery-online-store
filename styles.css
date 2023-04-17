@@ -245,6 +245,7 @@ nav {
     width: 12rem;
     text-align: center;
     color: var(--g4);
+    background-color: white;
 }
 
 .product-quantity-counter ::-webkit-inner-spin-button,
